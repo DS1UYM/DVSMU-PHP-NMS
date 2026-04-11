@@ -36,13 +36,6 @@ sudo chmod +x ./setup
 
 sudo ./setup
 
---> 재부팅 후 
-
-dvs
-
---> Main User(관리자) 설정 후 다음 단계 진행
-
-
 
 
 ### Step2. DVSMU 설치
@@ -57,7 +50,14 @@ sudo ./setup
 
 --> 재부팅 후 
 
+dvs
+
+--> Main User(관리자) 설정 후 다음 단계 진행
+
 dvsmu
+
+--> Multi User 설정 후 다음 단계 진행
+
 
 
 ### Step3. NMS 패키지 설치
