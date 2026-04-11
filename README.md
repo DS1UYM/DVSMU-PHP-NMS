@@ -32,7 +32,7 @@ chmod +x setup
 
 sudo chmod +x ./Step1_DVS_Setup.sh
 
-dvs 엔터 --> Main User(관리자) 설정 후 다음 단계 진행
+--> Main User(관리자) 설정 후 다음 단계 진행
 
 
 
