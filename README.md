@@ -40,7 +40,7 @@ sudo ./setup
 
 
 
-### Step2. DVMU 설치
+### Step2. DVSMU 설치
 
 cd /tmp
 
