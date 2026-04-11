@@ -21,9 +21,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step0_grubzero.sh
 
-sudo chmod +x ./Step0_grubzero.sh
+sudo chmod +x ./setup
 
-sudo ./Step0_grubzero.sh
+sudo ./setup
 
 
 ### Step1. DVS-Server 설치
@@ -32,9 +32,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step1_DVS_Setup.sh
 
-chmod +x Step1_DVS_Setup.sh
+sudo chmod +x ./setup
 
-sudo ./Step1_DVS_Setup.sh
+sudo ./setup
 
 --> Main User(관리자) 설정 후 다음 단계 진행
 
@@ -46,9 +46,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_DVSMU_Setup.sh
 
-chmod +x Step2_DVSMU_Setup.sh
+sudo chmod +x ./setup
 
-sudo ./Step2_DVSMU_Setup.sh
+sudo ./setup
 
 
 
@@ -58,9 +58,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step3_NMS_Setup.run
 
-chmod +x Step3_NMS_Setup.run
+sudo chmod +x ./setup
 
-sudo ./Step3_NMS_Setup.run
+sudo ./setup
 
 
 
