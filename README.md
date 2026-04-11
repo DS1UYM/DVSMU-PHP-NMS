@@ -6,7 +6,7 @@ NMS 시스템까지 단계별 설치 패키지 입니다.
 
 OS Debian 12 Bookworm 설치 권장
 
--- SSH,Apache,Default 선택 (패키지 옵션 선택 중 가장 아래 3개만 선택)
+-- SSH,Apache,standard utility 선택 (패키지 옵션 선택 중 가장 아래 3개만 선택)
 
 -- ROM 8GB, RAM 4GB 이상 권장, CPU core는 많을수록 좋음
 
