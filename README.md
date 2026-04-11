@@ -2,17 +2,24 @@
 This is an NMS system for administrators of the DV Switch multi-user version.
 
 OS Debian 12 Bookworm 설치
+
 -- SSH,Apache,Default 선택
 
 sudo apt update -y && sudo apt upgrade -y
+
 sudo apt install net-tools -y
+
 sudo apt install ntpsec -y
 
 sudo nano /etc/ntpsec/ntp.conf 
+
 -->  server time.bora.net
 
+
 cd /tmp
+
 wget http://dvswitch.org/bookworm
+
 chmod +x bookworm
 sudo ./bookworm
 sudo apt-get update
