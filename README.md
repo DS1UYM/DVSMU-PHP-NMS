@@ -56,3 +56,20 @@ chmod +x setup
 ./setup
 
 
+
+
+#########################################################################
+
+기존에 DVSMU가 모두 설치되어 있는 경우 다음의 NMS패키지만 설치합니다.
+
+cd /tmp
+
+wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/setup.run
+
+chmod +x setup
+
+./setup.run
+
+#########################################################################
+
+
