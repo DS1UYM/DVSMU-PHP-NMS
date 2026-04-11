@@ -1,6 +1,9 @@
 # DVSMU-PHP-NMS
 This is an NMS system for administrators of the DV Switch multi-user version.
 
+NMS 시스템까지 단계별 설치 패키지 입니다.
+원치 않는 단계는 건너띄워도 되나 시스템 오류는 해결하지 않습니다.
+
 OS Debian 12 Bookworm 설치 권장
 
 -- SSH,Apache,Default 선택 (패키지 옵션 선택 중 가장 아래 3개만 선택)
@@ -20,6 +23,7 @@ wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step0_
 
 sudo chmod +x ./Step0_grubzero.sh
 
+sudo ./Step0_grubzero.sh
 
 
 ### Step1. DVS-Server 설치
@@ -28,9 +32,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step1_DVS_Setup.sh
 
-chmod +x setup
+chmod +x Step1_DVS_Setup.sh
 
-sudo chmod +x ./Step1_DVS_Setup.sh
+sudo ./Step1_DVS_Setup.sh
 
 --> Main User(관리자) 설정 후 다음 단계 진행
 
@@ -42,9 +46,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_DVSMU_Setup.sh
 
-chmod +x setup
+chmod +x Step2_DVSMU_Setup.sh
 
-sudo chmod +x ./Step2_DVSMU_Setup.sh
+sudo ./Step2_DVSMU_Setup.sh
 
 
 
@@ -54,9 +58,9 @@ cd /tmp
 
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step3_NMS_Setup.run
 
-chmod +x setup
+chmod +x Step3_NMS_Setup.run
 
-sudo chmod +x ./Step3_NMS_Setup.run
+sudo ./Step3_NMS_Setup.run
 
 
 
