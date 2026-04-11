@@ -36,11 +36,12 @@ sudo chmod +x ./setup
 
 sudo ./setup
 
+--> 재부팅 후 
+
+dvs
+
 --> Main User(관리자) 설정 후 다음 단계 진행
 
-sudo reboot
-
---> 완료 후 재부팅 진행
 
 
 
@@ -54,6 +55,9 @@ sudo chmod +x ./setup
 
 sudo ./setup
 
+--> 재부팅 후 
+
+dvsmu
 
 
 ### Step3. NMS 패키지 설치
