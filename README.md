@@ -12,6 +12,7 @@ OS Debian 12 Bookworm 설치 권장
 
 -- ROOT 패스워드는 설정하지 않고 건들지 않음
 
+<img src=https://github.com/DS1UYM/DVSMU-PHP-NMS/blob/main/NMS_cap_20260404.png>
 
 
 
