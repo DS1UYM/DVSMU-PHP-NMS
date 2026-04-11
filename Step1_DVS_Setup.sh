@@ -14,4 +14,3 @@ sudo apt-get install dvswitch-server -y
 
 alias dvs='sudo /usr/local/dvs/dvs'
 
-sudo reboot
