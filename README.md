@@ -14,8 +14,12 @@ OS Debian 12 Bookworm 설치 권장
 
 <img src=https://github.com/DS1UYM/DVSMU-PHP-NMS/blob/main/NMS_cap_20260404.png>
 
+## 자동 설치
+```sh
+cd /tmp && wget -O install.sh https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/install.sh && sudo chmod +x install.sh && sudo ./install.sh
+```
 
-
+## 수동 설치
 ### Step0. Grub 대기 시간 0초로 변경
 
 cd /tmp
