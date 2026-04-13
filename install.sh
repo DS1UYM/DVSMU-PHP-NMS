@@ -10,9 +10,14 @@ set -Eeuo pipefail
 trap 'echo "${RED}Error${NOC}: failed at line $LINENO: $BASH_COMMAND"; exit 1' ERR
 
 # Check for root permissions
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
   echo "\n${RED}Error${NOC}: This script must be run with sudo privileges."
   exit 1
+fi
+
+SKIP_STEP1=0
+if [ -e ~/.cache/.dvsmu_nms_tmp ]; then
+  SKIP_STEP1=1
 fi
 
 printf "Changing GRUB settings . . ."
@@ -22,11 +27,10 @@ if ! sed -i 's/GRUB_TIMEOUT=[0-9]*/GRUB_TIMEOUT=0/' /etc/default/grub; then
   exit 1
 fi
 
-
 if grep -q "GRUB_TIMEOUT_STYLE=" /etc/default/grub; then
-    sed -i 's/GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
+  sed -i 's/GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
 else
-    echo "GRUB_TIMEOUT_STYLE=hidden" >> /etc/default/grub
+  echo "GRUB_TIMEOUT_STYLE=hidden" >> /etc/default/grub
 fi
 
 # Apply changes
@@ -37,45 +41,49 @@ if ! update-grub; then
 fi
 echo "OK"
 
-# step1
-printf "Checking for updates . . ."
-if ! apt-get update -y; then
-  echo "\n${RED}Error${NOC}: apt-get update failed"
-  exit 1
-fi
-if ! apt-get upgrade -y; then
-  echo "\n${RED}Error${NOC}: apt-get upgrade failed"
-  exit 1
-fi
-echo "OK"
+if [ "$SKIP_STEP1" -eq 0 ]; then
+  # step1
+  printf "Checking for updates . . ."
+  if ! apt-get update -y; then
+    echo "\n${RED}Error${NOC}: apt-get update failed"
+    exit 1
+  fi
+  if ! apt-get upgrade -y; then
+    echo "\n${RED}Error${NOC}: apt-get upgrade failed"
+    exit 1
+  fi
+  echo "OK"
+  cd /tmp
+  printf "Installing DVS . . ."
+  if ! wget http://dvswitch.org/bookworm; then
+    echo "\n${RED}Error${NOC}: failed to download dvswitch installer"
+    exit 1
+  fi
+  if ! chmod +x bookworm; then
+    echo "\n${RED}Error${NOC}: failed to set execute permission on bookworm"
+    exit 1
+  fi
+  if ! ./bookworm; then
+    echo "\n${RED}Error${NOC}: bookworm installer failed"
+    exit 1
+  fi
+  if ! apt-get update; then
+    echo "\n${RED}Error${NOC}: apt-get update failed after bookworm installer"
+    exit 1
+  fi
+  if ! apt-get install dvswitch-server -y; then
+    echo "\n${RED}Error${NOC}: failed to install dvswitch-server"
+    exit 1
+  fi
 
-cd /tmp
-
-printf "Installing DVS . . ."
-if ! wget http://dvswitch.org/bookworm; then
-  echo "\n${RED}Error${NOC}: failed to download dvswitch installer"
-  exit 1
+  alias dvs='sudo /usr/local/dvs/dvs'
+  echo "OK"
+  echo "You can run 'dvs' to start the DVS server."
+  echo "Please reboot, then use the 'dvs' command to set up the main user and the 'dvsmu' command to set up the multi user."
+  mkdir -p ~/.cache
+  echo 1 >> ~/.cache/.dvsmu_nms_tmp
+  exit
 fi
-if ! chmod +x bookworm; then
-  echo "\n${RED}Error${NOC}: failed to set execute permission on bookworm"
-  exit 1
-fi
-if ! ./bookworm; then
-  echo "\n${RED}Error${NOC}: bookworm installer failed"
-  exit 1
-fi
-if ! apt-get update; then
-  echo "\n${RED}Error${NOC}: apt-get update failed after bookworm installer"
-  exit 1
-fi
-if ! apt-get install dvswitch-server -y; then
-  echo "\n${RED}Error${NOC}: failed to install dvswitch-server"
-  exit 1
-fi
-
-alias dvs='sudo /usr/local/dvs/dvs'
-echo "OK"
-echo "You can run 'dvs' to start the DVS server."
 
 # step2
 printf "Installing dependencies for DVS . . ."
@@ -108,5 +116,5 @@ if ! ./setup; then
   exit 1
 fi
 echo "OK"
-
 echo "Installation completed! Please reboot your system to apply all changes."
+exit
