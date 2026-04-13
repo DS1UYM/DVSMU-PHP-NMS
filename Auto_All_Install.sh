@@ -120,28 +120,39 @@ if [ ! -f "/root/.cache/.dvs_step1_done" ]; then
 fi
 
 # ---------------------------------------------------------------------
-# [Step 2] DVSMU Dependencies 다운로드 및 실행 (수정된 부분)
+# [Step 2] DVSMU Dependencies 다운로드 및 실행 
 # ---------------------------------------------------------------------
 if [ ! -f "/root/.cache/.dvs_step2_done" ]; then
     printf "\nStep 2: Installing dependencies for DVSMU (System will reboot) . . .\n"
 
-    # 요청하신 hl5ky 리포지토리의 setup 파일 다운로드
-    if wget -q -O setup "https://raw.githubusercontent.com/hl5ky/dvsmu/main/setup"; then
-        sudo chmod +x setup
+    # 1. /root 폴더로 이동하여 작업 (권한 문제 원천 차단)
+    cd /root || exit 1
 
-        echo "setup 스크립트를 실행합니다 (옵션: show). 곧 시스템이 재부팅됩니다..."
-        # 현재 스크립트가 이미 root이므로 sudo 없이 실행합니다.
-        sudo ./setup
+    # 2. 만약 이전에 다운받다 실패한 잔여 파일이 있다면 삭제
+    rm -f /root/setup
+
+    # 3. 파일 다운로드 (에러 내용 확인을 위해 -q 옵션 제외)
+    if wget -O /root/setup "https://raw.githubusercontent.com/hl5ky/dvsmu/main/setup"; then
+        
+        # 4. 파일 소유자를 root로 변경하고 실행 권한 부여
+        chown root:root /root/setup
+        chmod 755 /root/setup
+
+        echo "setup 스크립트를 실행합니다. 곧 시스템이 재부팅됩니다..."
+        
+        # 5. 절대 경로로 파일 실행
+        /root/setup show
 
         # 완료 표시 파일 생성 (재부팅 루프 방지)
         mkdir -p /root/.cache
         touch /root/.cache/.dvs_step2_done
 
-        # 만약 ./setup show 명령어가 스스로 재부팅을 시키지 않을 경우를 대비한 강제 재부팅
+        # 만약 setup 명령어가 스스로 재부팅을 시키지 않을 경우를 대비한 강제 재부팅
         echo "Step 2 완료. 시스템을 재부팅합니다..."
         reboot
     else
         echo -e "\n${RED}Error${NOC}: hl5ky 리포지토리에서 setup 파일을 다운로드하지 못했습니다."
+        # wget이 실패한 원인을 남기기 위해 종료 코드 1로 나감
         exit 1
     fi
 fi
