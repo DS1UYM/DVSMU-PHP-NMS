@@ -120,7 +120,8 @@ sudo ./setup
 ```
 sudo cat /root/step3_install.log
 ```
-  
+> [!NOTE]
+> 4월 13일 기준 업데이트가 있습니다. 접속자관리 페이지에서 자동업데이트를 실시해주세요.
   
   
    
