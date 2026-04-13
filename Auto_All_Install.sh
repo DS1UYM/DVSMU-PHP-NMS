@@ -131,7 +131,7 @@ if [ ! -f "/root/.cache/.dvs_step2_done" ]; then
 
         echo "setup 스크립트를 실행합니다 (옵션: show). 곧 시스템이 재부팅됩니다..."
         # 현재 스크립트가 이미 root이므로 sudo 없이 실행합니다.
-        sudo ./setup show
+        sudo ./setup
 
         # 완료 표시 파일 생성 (재부팅 루프 방지)
         mkdir -p /root/.cache
