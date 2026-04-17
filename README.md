@@ -10,7 +10,7 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > ROM 8GB, RAM 4GB 이상 권장, CPU core는 많을수록 좋음  
 > ROOT 패스워드는 설정하지 않고 건들지 않음  
   
-<img src=https://github.com/DS1UYM/DVSMU-PHP-NMS/blob/main/NMS_cap_20260404.png>
+<img src=https://github.com/DS1UYM/DVSMU-PHP-NMS/blob/main/NMS_cap_20260417.png>
 <BR><BR><BR><BR><BR>
  
 # [자동설치] 한번에 모두 설치하는 Auto Install  
