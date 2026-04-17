@@ -33,34 +33,62 @@ echo "================================================="
 if [ ! -f "/root/.dvsmu_step3_done" ]; then
     echo "Configuring auto-resume for Step 3 after reboot..."
 
-    # 재부팅 후 실행할 실제 설치 스크립트 생성
-    cat << EOF > /root/resume_step3.sh
+    cat << 'EOF' > /root/resume_step3.sh
 #!/bin/bash
-# 백그라운드 실행이므로 로그를 파일로 남깁니다.
 exec > /root/step3_install.log 2>&1
 
-echo "Starting Step 3: Installing NMS Package..."
+echo "--- Step 3 Installation Log: $(date) ---"
+
+# 1. 네트워크 연결 대기 로직 (최대 30초)
+echo "Waiting for internet connection..."
+MAX_RETRIES=15
+RETRY_COUNT=0
+until ping -c 1 -W 2 google.com > /dev/null 2>&1 || [ $RETRY_COUNT -eq $MAX_RETRIES ]; do
+    echo "Network not ready. Retrying in 2 seconds... ($((RETRY_COUNT+1))/$MAX_RETRIES)"
+    sleep 2
+    RETRY_COUNT=$((RETRY_COUNT+1))
+done
+
+if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+    echo "Error: Network connection timed out. Step 3 failed."
+    exit 1
+fi
+
+echo "Network is up! Starting Step 3..."
 cd /tmp
 
-# 사용자님의 깃허브에서 Step3_NMS_Setup.run 다운로드 및 실행
-if wget -q -O setup_nms "$GITHUB_RAW_BASE/Step3_NMS_Setup.run"; then
+# 2. 파일 다운로드 재시도 로직
+MAX_WGET_RETRIES=5
+WGET_SUCCESS=0
+
+for i in $(seq 1 $MAX_WGET_RETRIES); do
+    echo "Downloading Step3_NMS_Setup.run (Attempt $i/$MAX_WGET_RETRIES)..."
+    if wget -q -O setup_nms "https://raw.githubusercontent.com/DS1UYM/DVSMU-PHP-NMS/main/Step3_NMS_Setup.run"; then
+        WGET_SUCCESS=1
+        break
+    fi
+    sleep 3
+done
+
+if [ $WGET_SUCCESS -eq 1 ]; then
     chmod +x setup_nms
     ./setup_nms
     echo "Step 3 Installation completed successfully!"
     touch /root/.dvsmu_step3_done
+    
+    # 성공했을 때만 서비스 삭제
+    systemctl disable resume_step3.service
+    rm /etc/systemd/system/resume_step3.service
+    rm /root/resume_step3.sh
 else
-    echo "Error: Failed to download setup_nms"
+    echo "Error: Failed to download setup_nms after $MAX_WGET_RETRIES attempts."
+    exit 1
 fi
-
-# 설치가 끝나면 예약 서비스와 임시 스크립트를 깔끔하게 스스로 삭제
-systemctl disable resume_step3.service
-rm /etc/systemd/system/resume_step3.service
-rm /root/resume_step3.sh
 EOF
 
     chmod +x /root/resume_step3.sh
 
-    # 재부팅 후 작동할 systemd 서비스 등록
+    # systemd 서비스 등록 (Restart 옵션 추가로 안정성 확보)
     cat << 'EOF' > /etc/systemd/system/resume_step3.service
 [Unit]
 Description=Resume DVS Install Step 3 after reboot
@@ -70,6 +98,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/root/resume_step3.sh
+RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
@@ -140,19 +169,18 @@ if [ ! -f "/root/.cache/.dvs_step2_done" ]; then
 
         echo "setup 스크립트를 실행합니다. 곧 시스템이 재부팅됩니다..."
         
-        # 5. 절대 경로로 파일 실행
-        /root/setup show
-
-        # 완료 표시 파일 생성 (재부팅 루프 방지)
+        # ★ 핵심: setup 스크립트가 재부팅을 시키기 전에 미리 완료 표시를 해둡니다.
         mkdir -p /root/.cache
         touch /root/.cache/.dvs_step2_done
+        
+        # 5. 절대 경로로 파일 실행 (이 명령어가 완료되면 자동으로 재부팅됨)
+        /root/setup show
 
         # 만약 setup 명령어가 스스로 재부팅을 시키지 않을 경우를 대비한 강제 재부팅
         echo "Step 2 완료. 시스템을 재부팅합니다..."
         reboot
     else
         echo -e "\n${RED}Error${NOC}: hl5ky 리포지토리에서 setup 파일을 다운로드하지 못했습니다."
-        # wget이 실패한 원인을 남기기 위해 종료 코드 1로 나감
         exit 1
     fi
 fi
