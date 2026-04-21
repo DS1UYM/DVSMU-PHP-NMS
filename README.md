@@ -11,7 +11,7 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > ROOT 패스워드는 설정하지 않고 건들지 않음  
 
 > [!NOTE]
-> 4월 19일 19시 10분 업데이트가 있으니 기존 사용자분은 Step3만 재설치 해주세요.<BR>
+> 4월 19일 19시 10분 업데이트가 있으니 기존 사용자분은 Step2만 재설치 해주세요.<BR>
 > 관리자페이지 패스워드 관리가 통합되었습니다.<BR>
 > '시스템 자동재부팅' 예약 관리가 가능합니다.<BR>
 > [통계] 페이지가 추가 되었습니다. 사용자별 이용량 확인이 가능합니다.<BR>
@@ -22,7 +22,6 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > TCP3000 오픈 되어 있지 않으면 업데이트 전보다 실시간 확인이 느리게 확인됩니다.
 > 오디오모니터 기능은 제거 되었습니다.<BR>
 > BM Hoseline 바로가기가 추가되었습니다.<BR>
-> 이후 자동 업데이트시 Step3_NMS_setep을 자동으로 재실행 합니다.<BR>
 > dvsMU 패키지 설치 없이 웹상에서 멀티 유저 추가 및 삭제, 편집이 가능합니다.
 > 멀티 유저수 제한이 없습니다.
   
@@ -32,10 +31,10 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 
 
 > [!NOTE]
-> Step1_DVS 설치 후 DVS를 실행하여 초기 설정을 하고 Step3을 설치합니다.
+> Step1_DVS 설치 후 DVS를 실행하여 초기 설정을 하고 Step2를 설치합니다.
 > '자동설치스크립트'는 삭제되었습니다.
 
-<BR><BR><BR><BR><BR><BR>
+<BR>
  
   
 # [수동설치] 순서입니다.  
@@ -63,20 +62,18 @@ sudo chmod +x ./setup
 sudo ./setup
 ```
   
-## Step2. 삭제
-<BR>
   
-## Step3. NMS 패키지 설치
+## Step2. NMS 패키지 설치
 ```
 cd /tmp
 
-wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step3_NMS_Setup.run
+wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_NMS_Setup.run
 
 sudo chmod +x ./setup
 
 sudo ./setup
 ```
-  
+<BR><BR>  
 ## Step4. NMS+TG알림봇(텔레그램) 설치  
 > [!NOTE]
 > 텔레그램 'BotFather' 에서 '/newbot' 입력하고 나만의 챗봇 생성  
