@@ -2,11 +2,11 @@ sudo apt update -y && sudo apt upgrade -y
 
 cd /tmp
 
-sudo wget http://dvswitch.org/bookworm
+sudo wget http://dvswitch.org/trixie
 
-sudo chmod +x bookworm
+sudo chmod +x trixie
 
-sudo ./bookworm
+sudo ./trixie
 
 sudo apt-get update
 
