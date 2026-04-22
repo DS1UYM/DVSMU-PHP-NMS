@@ -11,7 +11,7 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > ROOT 패스워드는 설정하지 않고 건들지 않음  
 
 > [!NOTE]
-> 4월 19일 19시 10분 업데이트가 있으니 기존 사용자분은 Step2만 재설치 해주세요.<BR>
+> 4월 20일 10시 30분 업데이트가 있으니 기존 사용자분은 Step2만 재설치 해주세요.<BR>
 > 관리자페이지 패스워드 관리가 통합되었습니다.<BR>
 > '시스템 자동재부팅' 예약 관리가 가능합니다.<BR>
 > [통계] 페이지가 추가 되었습니다. 사용자별 이용량 확인이 가능합니다.<BR>
@@ -25,16 +25,15 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > dvsMU 패키지 설치 없이 웹상에서 멀티 유저 추가 및 삭제, 편집이 가능합니다.
 > 멀티 유저수 제한이 없습니다.
   
-
+<BR><BR><BR>
 <img src=https://github.com/DS1UYM/DVSMU-PHP-NMS/blob/main/NMS_cap_20260417.png>
-<BR><BR><BR><BR><BR>
+<BR><BR><BR>
 
 
 > [!NOTE]
-> Step1_DVS 설치 후 DVS를 실행하여 초기 설정을 하고 Step2를 설치합니다.
-> '자동설치스크립트'는 삭제되었습니다.
+> Step2까지 모두 설치 하신 후 웹페이지에서 서버 주소로 접속하고 '접속자관리' 페이지에서 메인유저와 멀티유저를 설정하세요
 
-<BR>
+<BR><BR><BR>
  
   
 # [수동설치] 순서입니다.  
@@ -73,16 +72,15 @@ sudo chmod +x ./setup
 
 sudo ./setup
 ```
-<BR><BR>  
+
+<BR><BR><BR>
+
 ## Step4. NMS+TG알림봇(텔레그램) 설치  
 > [!NOTE]
 > 텔레그램 'BotFather' 에서 '/newbot' 입력하고 나만의 챗봇 생성  
 > API토큰과 챗ID를 받으면 'TG알리미'에서 정보 2가지 정보 입력  
     
-
-
-<BR><BR><BR><BR><BR>
-  
+ 
 
 <BR><BR><BR><BR><BR>
    
