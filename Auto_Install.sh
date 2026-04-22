@@ -33,6 +33,7 @@ sudo chmod +x ./step2_setup && \
 sudo ./step2_setup
 
 # 10초 대기 또는 아무 키나 입력 시 재부팅 진행
+echo -e "\n\n..."
 read -t 10 -n 1 -s -r -p "10초 후 자동으로 시스템을 재부팅합니다. 즉시 재부팅하려면 아무 키나 누르세요..."
 echo -e "\n\n시스템을 재부팅합니다..."
 sudo reboot
