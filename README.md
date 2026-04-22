@@ -34,7 +34,19 @@ This is an NMS system for administrators of the DV Switch multi-user version.
 > Step2까지 모두 설치 하신 후 웹페이지에서 서버 주소로 접속하고 '접속자관리' 페이지에서 메인유저와 멀티유저를 설정하세요
 
 <BR><BR><BR>
- 
+# [자동설치] OS만 설치된 상태에서 실행하세요
+```
+cd /tmp
+
+wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Auto_Install.sh
+
+sudo chmod +x ./setup
+
+sudo ./setup
+```
+<BR><BR><BR>
+
+
   
 # [수동설치] 순서입니다.  
   
