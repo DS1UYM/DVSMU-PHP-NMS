@@ -31,18 +31,30 @@ EOF
   echo "alias dvs='sudo /usr/local/dvs/dvs'" >> ~/.bashrc && \
   wget -O step2_setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_NMS_Setup.run && \
   sudo chmod +x ./step2_setup && \
-  sudo ./step2_setup && \
-  {
-    # 1. 파일 시스템 동기화 및 프로세스 완전 종료 대기
-    sync
-    sleep 3
-    
-    # 2. 설치 중 입력된 불필요한 키보드 버퍼 비우기 (타임아웃 스킵 방지용)
-    read -t 1 -n 10000 discard < /dev/tty 2>/dev/null || true
-        
-    # 3. 10초 대기 및 재부팅 (키보드 직접 입력 강제)
-    read -t 10 -n 1 -s -r -p "10초 후 자동으로 시스템을 재부팅합니다. 즉시 재부팅하려면 아무 키나 누르세요..." < /dev/tty
-    echo -e "\n\n시스템을 재부팅합니다..."
-    sudo reboot
-  }
+  sudo ./step2_setup
+  
+  # 설치가 정상적으로 끝났는지 확인
+  if [ $? -eq 0 ]; then
+      sync
+      sleep 2 # 백그라운드 작업이 완전히 끝날 때까지 2초 안전 대기
+     
+      # [핵심] 복사/붙여넣기 시 남아있는 키보드 입력(엔터 등) 찌꺼기 완벽히 비우기
+      while read -r -t 0.1 -s < /dev/tty; do :; done || true
+      
+      echo -e "10초 후 자동으로 시스템을 재부팅합니다."
+      echo -e "즉시 재부팅하려면 아무 키나 누르세요.\n"
+      
+      # 10초 카운트다운 루프 (1초마다 아무 키나 눌렸는지 확인)
+      for i in {10..1}; do
+          echo -ne "재부팅 대기 중... $i 초 남았습니다.\r"
+          if read -t 1 -n 1 -s < /dev/tty; then
+              break # 키 입력이 감지되면 즉시 루프 탈출
+          fi
+      done
+      
+      echo -e "\n\n시스템을 재부팅합니다..."
+      sudo reboot
+  else
+      echo -e "\n\n[오류] 설치 중 문제가 발생하여 재부팅을 진행하지 않습니다."
+  fi
 }
