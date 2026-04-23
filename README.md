@@ -15,7 +15,7 @@
 
 ---
 
-## 📢 최근 업데이트 내역 (4월 20일 10:30 기준)
+## 📢 최근 업데이트 내역 (4월 22일 13시 기준)
 
 > [!NOTE]
 > **기존 사용자 안내:** 전체를 다시 설치할 필요 없이 **[수동 설치 - Step2]**만 재설치하시면 최신 버전이 적용됩니다.
@@ -58,12 +58,23 @@
 
 ## 🚀 설치 안내
 
-OS(Debian) 설치가 막 끝난 초기 상태에서 실행하는 것을 권장합니다.
+OS(Debian or ubuntu) 설치 완료 후 
+```
+ip addr
+```
+위 명령으로 서버 IP주소 확인 명령프롬프트에서 
+터미널 원격 접속합니다.
+```
+SSH [계정]@[서버주소]
+```
+접속 후 아래 명령들을 복사하여 실행합니다.
+
+<BR><BR>
 
 ### 💡 [방법 A] 자동 설치 (권장)
 단일 스크립트로 필요한 모든 구성을 자동으로 진행합니다.
 
-```bash
+```
 cd /tmp
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Auto_Install.sh
 sudo chmod +x ./setup
@@ -74,7 +85,6 @@ sudo ./setup
 필요한 단계만 선택하여 개별적으로 설치할 수 있습니다.
 
 Step 0. GRUB 대기 시간 0초 설정
-
 ```
 cd /tmp
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step0_grubzero.sh
@@ -94,7 +104,6 @@ sudo ./setup
 
 Step 2. NMS 패키지 설치
 ```
-Bash
 cd /tmp
 wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_NMS_Setup.run
 sudo chmod +x ./setup
@@ -106,9 +115,10 @@ sudo ./setup
 ### 1. 사용자 구성
 Step 2까지 설치를 마친 후, 웹 브라우저를 통해 http://[서버-IP-주소]로 접속합니다.
 
-초기 패스워드: admin (해당 페이지 소스 파일 최상단에서 직접 수정 가능)
+초기 패스워드: admin (최초 비밀번호 변경 메뉴에서 수정하세요)
 
 로그인 후 '접속자 관리' 페이지에서 메인 유저(00) 설정 부터 완료해 주세요.
+
 <BR>
 ### 2. Step 4. NMS+TG 알림봇(텔레그램) 연동
 
