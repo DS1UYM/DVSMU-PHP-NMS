@@ -87,27 +87,27 @@ sudo ./setup
 Step 0. GRUB 대기 시간 0초 설정
 ```
 cd /tmp
-wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step0_grubzero.sh
-sudo chmod +x ./setup
-sudo ./setup
+wget -O setup0 https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step0_grubzero.sh
+sudo chmod +x ./setup0
+sudo ./setup0
 ```
 <BR>
 
 Step 1. DVS-Server 설치
 ```
 cd /tmp
-wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step1_DVS_Setup.sh
-sudo chmod +x ./setup
-sudo ./setup
+wget -O setup1 https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step1_DVS_Setup.sh
+sudo chmod +x ./setup1
+sudo ./setup1
 ```
 <BR>
 
 Step 2. NMS 패키지 설치
 ```
 cd /tmp
-wget -O setup https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_NMS_Setup.run
-sudo chmod +x ./setup
-sudo ./setup
+wget -O setup2 https://raw.githubusercontent.com/ds1uym/DVSMU-PHP-NMS/main/Step2_NMS_Setup.run
+sudo chmod +x ./setup2
+sudo ./setup2
 ```
 <BR><BR>
 
