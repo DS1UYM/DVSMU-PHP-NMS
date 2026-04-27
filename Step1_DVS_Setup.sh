@@ -14,3 +14,6 @@ sudo apt-get install dvswitch-server -y
 
 grep -qxF "alias dvs='sudo /usr/local/dvs/dvs'" ~/.bashrc || echo "alias dvs='sudo /usr/local/dvs/dvs'" >> ~/.bashrc
 
+source ~/.bashrc
+
+dvs
