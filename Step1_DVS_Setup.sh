@@ -12,5 +12,5 @@ sudo apt-get update
 
 sudo apt-get install dvswitch-server -y
 
-alias dvs='sudo /usr/local/dvs/dvs'
+grep -qxF "alias dvs='sudo /usr/local/dvs/dvs'" ~/.bashrc || echo "alias dvs='sudo /usr/local/dvs/dvs'" >> ~/.bashrc
 
